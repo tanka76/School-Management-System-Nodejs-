@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler')
 const User = require('../models/Users/user')
 
 const protect = asyncHandler(async (req, res, next) => {
+  console.log("protect middleware Called")
   let token
 
   if (
@@ -11,17 +12,16 @@ const protect = asyncHandler(async (req, res, next) => {
   ) {
     try {
       // Get token from header
-      token = req.headers.authorization.split(' ')[1]
 
+      token = req.headers.authorization.split(' ')[1]
       // Verify token
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
-
       // Get user from the token
-      req.user = await User.findById(decoded.id).select('-password')
-
+      const user = await User.findById(decoded.payload).select('-password -createdAt -updatedAt')
+      req.user = user;
       next()
     } catch (error) {
-      console.log(error)
+      console.log("Error========================",error)
       res.status(401)
       throw new Error('Not authorized')
     }
@@ -33,4 +33,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 })
 
-module.exports = { protect };
+module.exports = protect;

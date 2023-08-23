@@ -1,5 +1,5 @@
 const express = require('express');
-const {registerUserController,loginUserController,userDashboardController} = require('../../controllers/authController')
+const {registerUserController,loginUserController,getUserProfileController} = require('../../controllers/authController')
 
 const protect = require('../../middlewares/isLogged');
 
@@ -10,9 +10,7 @@ authRouter.post('/login',loginUserController);
 
 
 // protected route
-authRouter.get('/dashboard',userDashboardController);
-
-
+authRouter.get('/profile',protect,getUserProfileController);
 
 
 

@@ -63,15 +63,17 @@ const loginUserController = asyncHandler(async (req,res) => {
 
 // protected routes
 
-const userDashboardController = asyncHandler(async (req,res) => {
+const getUserProfileController = asyncHandler(async (req,res) => {
 
-    console.log("User Dashboard=========>")
-    
+    const user = req.user;
 
     res.status(200).json({
         status:"success",
-        message:"Welcome to Dashboard",
+        user:user,
     });
+
+    
+    
     }
 );
  
@@ -80,6 +82,6 @@ const userDashboardController = asyncHandler(async (req,res) => {
 module.exports = {
     registerUserController,
     loginUserController,
-    userDashboardController
+    getUserProfileController
 };
 
