@@ -64,24 +64,39 @@ const loginUserController = asyncHandler(async (req,res) => {
 // protected routes
 
 const getUserProfileController = asyncHandler(async (req,res) => {
-
     const user = req.user;
-
     res.status(200).json({
         status:"success",
         user:user,
     });
+    }
+);
 
-    
-    
+
+const getAllUserController = asyncHandler(async (req,res) => {
+    const allUser = await userModel.find();
+    res.status(200).json({
+        status:"success",
+        user:allUser,
+    });
     }
 );
  
+const userUpdateController = asyncHandler(async (req,res) => {
+    const allUser = await userModel.find();
+    res.status(200).json({
+        status:"success",
+        user:allUser,
+    });
+    }
+);
+
 
 
 module.exports = {
     registerUserController,
     loginUserController,
-    getUserProfileController
+    getUserProfileController,
+    getAllUserController
 };
 
